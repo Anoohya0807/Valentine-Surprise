@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Surprise 💖</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(#ff9a9e, #fad0c4);
+    text-align: center;
+    padding: 40px;
+  }
+
+  .card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 420px;
+    margin: auto;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  }
+
+  button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #e63956;
+  }
+
+  .reaction {
+    margin-top: 15px;
+    font-size: 18px;
+    min-height: 24px;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2 id="question"></h2>
+  <div id="options"></div>
+  <div class="reaction" id="reaction"></div>
+</div>
+
+<script>
+const quiz = [
+  {
+    q: "When did we first meet? 💬",
+    options: ["Apr 11", "Feb 26", "Oct 27", "Aug 15"],
+    correct: 0,
+    correctReaction: "Correct 🥰 You remember ❤️",
+    wrongReaction: "Wrong 😜 But cute try… I still love you ❤️"
+  },
+  {
+    q: "What is the gift that you gave me for the first time?",
+    options: ["Teddy Bear", "Dress", "Chocolate", "I don't remember"],
+    correct: 2,
+    correctReaction: "Haha yes 😍",
+    wrongReaction: "Nope 😅 Think again mister 😏"
+  },
+  {
+    q: "Where do you take me for date?",
+    options: ["Restaurant", "Shopping", "Movie", "Nowhere"],
+    correct: 1,
+    correctReaction: "Exactly 🥹❤️",
+    wrongReaction: "😡 Kill you after the test"
+  },
+  {
+    q: "Will you be my Valentine forever? 💍",
+    options: ["No", "Till my last breath ❤️"],
+    correct: 1,
+    correctReaction: "Yay! You're My Valentine! 🎉 I LOVE YOU ❤️",
+    wrongReaction: "❌ Invalid choice. System says you are already mine 😏❤️"
+  }
+];
+
+let index = 0;
+
+function loadQuestion() {
+  document.getElementById("reaction").innerText = "";
+  document.getElementById("question").innerText = quiz[index].q;
+
+  let html = "";
+  quiz[index].options.forEach((opt, i) => {
+    html += `<button onclick="checkAnswer(${i})">${opt}</button>`;
+  });
+  document.getElementById("options").innerHTML = html;
+}
+
+function checkAnswer(selected) {
+  const current = quiz[index];
+
+  if (selected === current.correct) {
+    document.getElementById("reaction").innerText = current.correctReaction;
+
+    setTimeout(() => {
+      index++;
+      if (index < quiz.length) {
+        loadQuestion();
+      } else {
+        document.querySelector(".card").innerHTML =
+          "<h2>You are my safest place ❤️</h2><p>Happy Valentine’s Day 💖</p>";
+      }
+    }, 1200);
+  } else {
+    document.getElementById("reaction").innerText = current.wrongReaction;
+  }
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
